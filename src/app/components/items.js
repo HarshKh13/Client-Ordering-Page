@@ -40,7 +40,7 @@ function Items() {
     async function handleAddItemToCart(item) {
         try {
             await addItemToCart(item);
-
+            await handleFetchCartItems();
         }
         catch (error){
             console.log(error);
@@ -51,6 +51,7 @@ function Items() {
         try {
             const cartItemToBeDeletedId = cartItems.filter((item) => item.sku === sku)[0]._id;
             await deleteItem(cartItemToBeDeletedId);
+            await handleFetchCartItems();
         }
         catch (error){
             console.log(error);
@@ -119,12 +120,6 @@ function Items() {
         handleFetchData();
         handleFetchCartItems();
     }, []);
-
-    // if(loading){
-    //     return (
-    //         <h1> Data is Loading </h1>
-    //     )
-    // }
 
     return (
         <div className={styles.body}>
