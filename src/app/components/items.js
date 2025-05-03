@@ -14,6 +14,8 @@ function Items() {
     const [cartVisible, setCartVisible] = useState(false);
     const [searchQuery, setSearchQuery] = useState("");
     const [filteredItems, setFilteredItems] = useState([]);
+    const [searchBarQuery, setSearchBarQuery] = useState("");
+
 
     async function handleFetchData() {
         try {
@@ -98,8 +100,17 @@ function Items() {
         catch(error){
             setFilteredItems(items);
         }
+    }
 
-
+    function handleSearchBar() {
+        try {
+            const query = searchBarQuery.trim().toLowerCase();
+            const results = items.filter((item) => item.sku.toLowerCase().includes(query) || item.title.toLowerCase().includes(query));
+            setFilteredItems(results);
+        }
+        catch (error) {
+            setFilteredItems(items);
+        }
     }
 
     function viewCart(){
@@ -128,7 +139,7 @@ function Items() {
                 setCartItems={setCartItems}
             />}
             <div>
-                <input type='text' onChange={(e)=>setSearchQuery(e.target.value)} onKeyUp={(e)=>e.key === 'Enter' && handleSearch() } 
+                <input type='text' onChange={(e)=>setSearchBarQuery(e.target.value)} onKeyUp={(e)=>e.key === 'Enter' && handleSearchBar() } 
                 className={styles.searchbar} placeholder='Find SKU abc'/>
                 <table className={styles.table}>
                     <thead>
@@ -161,6 +172,8 @@ function Items() {
                     </tbody>
                 </table>
             </div>
+            <textarea type='text' className={styles.chatInterface} onChange={(e)=>setSearchQuery(e.target.value)} 
+            onKeyUp={(e)=>e.key === 'Enter' && handleSearch()} placeholder='Find SKU abc'/>
         </div>
     );
 }
