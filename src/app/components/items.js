@@ -10,7 +10,6 @@ import { fetchData } from '../api/items';
 function Items() {
     const [items, setItems] = useState([]);
     const [cartItems, setCartItems] = useState([]);
-    const [loading, setLoading] = useState(true);
     const [cartVisible, setCartVisible] = useState(false);
     const [searchQuery, setSearchQuery] = useState("");
     const [filteredItems, setFilteredItems] = useState([]);
@@ -22,7 +21,6 @@ function Items() {
             const data = await fetchData();
             setItems(data);
             setFilteredItems(data);
-            setLoading(false);
         } 
         catch (error) {
             console.log(error);
@@ -122,11 +120,11 @@ function Items() {
         handleFetchCartItems();
     }, []);
 
-    if(loading){
-        return (
-            <h1> Data is Loading </h1>
-        )
-    }
+    // if(loading){
+    //     return (
+    //         <h1> Data is Loading </h1>
+    //     )
+    // }
 
     return (
         <div className={styles.body}>
@@ -141,36 +139,36 @@ function Items() {
             <div>
                 <input type='text' onChange={(e)=>setSearchBarQuery(e.target.value)} onKeyUp={(e)=>e.key === 'Enter' && handleSearchBar() } 
                 className={styles.searchbar} placeholder='Find SKU abc'/>
-                <table className={styles.table}>
-                    <thead>
-                        <tr className={styles.tr}>
-                            <th className={styles.th}>Title</th>
-                            <th className={styles.th}>SKU</th>
-                            <th className={styles.th}>Price</th>
-                            <th className={styles.th}>Image</th>
-                            <th className={styles.th}> Add/Remove </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {filteredItems.map((item) => {
-                            const isItemInCart = cartItems.some(cartItem => cartItem.sku === item.sku);
-                            return (<tr className={styles.tr}>
-                                <td className={styles.td}>{item.title}</td>
-                                <td className={styles.td}>{item.sku}</td>
-                                <td className={styles.td}>{item.price}</td>
-                                <td className={styles.td}><Image className={styles.img}
-                                    src={item.image_src}
-                                    width={40} 
-                                    height={40}/>
-                                </td>
-                                <td className={styles.td}><button className={styles.button} 
-                                onClick={()=> isItemInCart ? handleDeleteItemFromCart(item.sku) : handleAddItemToCart(item)}>
-                                    {isItemInCart ? 'Remove' : 'Add To Cart'}</button>
-                                </td>
-                            </tr>)
-                        })}
-                    </tbody>
-                </table>
+                    <table className={styles.table}>
+                        <thead>
+                            <tr className={styles.tr}>
+                                <th className={styles.th}>Title</th>
+                                <th className={styles.th}>SKU</th>
+                                <th className={styles.th}>Price</th>
+                                <th className={styles.th}>Image</th>
+                                <th className={styles.th}> Add/Remove </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {filteredItems.map((item) => {
+                                const isItemInCart = cartItems.some(cartItem => cartItem.sku === item.sku);
+                                return (<tr className={styles.tr}>
+                                    <td className={styles.td}>{item.title}</td>
+                                    <td className={styles.td}>{item.sku}</td>
+                                    <td className={styles.td}>{item.price}</td>
+                                    <td className={styles.td}><Image className={styles.img}
+                                        src={item.image_src}
+                                        width={40} 
+                                        height={40}/>
+                                    </td>
+                                    <td className={styles.td}><button className={styles.button} 
+                                    onClick={()=> isItemInCart ? handleDeleteItemFromCart(item.sku) : handleAddItemToCart(item)}>
+                                        {isItemInCart ? 'Remove' : 'Add To Cart'}</button>
+                                    </td>
+                                </tr>)
+                            })}
+                        </tbody>
+                    </table>
             </div>
             <textarea type='text' className={styles.chatInterface} onChange={(e)=>setSearchQuery(e.target.value)} 
             onKeyUp={(e)=>e.key === 'Enter' && handleSearch()} placeholder='Find SKU abc'/>
