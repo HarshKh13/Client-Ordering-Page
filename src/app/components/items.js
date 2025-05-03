@@ -142,7 +142,7 @@ function Items() {
             />}
             <div>
                 <input type='text' onChange={(e)=>setSearchBarQuery(e.target.value)} onKeyUp={(e)=>e.key === 'Enter' && handleSearchBar() } 
-                className={styles.searchbar} placeholder='Find SKU abc'/>
+                className={styles.searchbar} placeholder='Search by SKU/Title'/>
                     <table className={styles.table}>
                         <thead>
                             <tr className={styles.tr}>
@@ -175,7 +175,7 @@ function Items() {
                     </table>
             </div>
             <textarea type='text' className={styles.chatInterface} onChange={(e)=>setSearchQuery(e.target.value)} 
-            onKeyUp={(e)=>e.key === 'Enter' && handleSearch()} placeholder='Find SKU abc'/>
+            onKeyUp={(e)=>e.key === 'Enter' && handleSearch()} placeholder='Find SKU abc, Find items under $20'/>
         </div>
     );
 }
