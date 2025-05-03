@@ -1,6 +1,6 @@
 export async function fetchData() {
     try {
-        const result = await fetch('http://localhost:8000/api/items');
+        const result = await fetch(`${process.env.BASE_URL}/api/items`);
         const data = await result.json();
         return data;
     } 
