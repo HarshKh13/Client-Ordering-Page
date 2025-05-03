@@ -82,6 +82,15 @@ function Items() {
                 }
 
             }
+            else if(parsed.type === "allItemsPrice"){
+                const queryPrice = parseFloat(parsed.price.replace('$', ''), 10);
+                if(parsed.margin === "under"){
+                    results = items.filter((item) => parseFloat(item.price) < queryPrice);
+                }
+                else{
+                    results = items.filter((item) => parseFloat(item.price) > queryPrice);
+                }
+            }
             else if(parsed.type === "price"){
                 const queryPrice = parseFloat(parsed.value.replace('$', ''), 10);
                 if(parsed.margin === "under"){
