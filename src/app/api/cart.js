@@ -1,7 +1,7 @@
 export async function deleteItem(id){
     const payload = {'id': id}
     try {
-        const response = await fetch(`${process.env.BASE_URL}/api/cartItems`, {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/cartItems`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json'
@@ -18,7 +18,7 @@ export async function deleteItem(id){
 
 export async function fetchCartItems() {
     try {
-        const response = await fetch(`${process.env.BASE_URL}/api/cartItems`, {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/cartItems`, {
             method: 'GET'
         })
         const data = await response.json();
@@ -37,7 +37,7 @@ export async function addItemToCart(item) {
         'image_src': item.image_src
     }
     try {
-        const result = await fetch(`${process.env.BASE_URL}/api/cartItems`, {
+        const result = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/cartItems`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
